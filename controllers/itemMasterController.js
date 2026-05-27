@@ -254,7 +254,7 @@ exports.createDoctor = (req, res) => {
   const sql =
     "INSERT INTO doctors (name, specialist, image, description) VALUES (?, ?, ?, ?)";
 
-  db.query(
+  db.mainDb()(
     sql,
     [name, specialist, image, description],
     (err, result) => {
@@ -273,7 +273,7 @@ exports.createDoctor = (req, res) => {
 
 // READ ALL
 exports.getDoctors = (req, res) => {
-  db.query("SELECT * FROM doctors", (err, results) => {
+  db.mainDb()("SELECT * FROM doctors", (err, results) => {
     if (err) return res.status(500).json(err);
 
     res.json(results);
@@ -284,7 +284,7 @@ exports.getDoctors = (req, res) => {
 exports.getDoctorById = (req, res) => {
   const { id } = req.params;
 
-  db.query(
+  db.mainDb()(
     "SELECT * FROM doctors WHERE id = ?",
     [id],
     (err, result) => {
@@ -303,7 +303,7 @@ exports.updateDoctor = (req, res) => {
   const sql =
     "UPDATE doctors SET name=?, specialist=?, image=?, description=? WHERE id=?";
 
-  db.query(sql, [name, specialist, image, description, id], (err) => {
+  db.mainDb()(sql, [name, specialist, image, description, id], (err) => {
     if (err) return res.status(500).json(err);
 
     res.json({ message: "Doctor updated" });
@@ -314,7 +314,7 @@ exports.updateDoctor = (req, res) => {
 exports.deleteDoctor = (req, res) => {
   const { id } = req.params;
 
-  db.query("DELETE FROM doctors WHERE id = ?", [id], (err) => {
+  db.mainDb()("DELETE FROM doctors WHERE id = ?", [id], (err) => {
     if (err) return res.status(500).json(err);
 
     res.json({ message: "Doctor deleted" });
