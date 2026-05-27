@@ -29,8 +29,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-
-
 // ================== CORS ==================
 app.use(cors({
   origin: ["https://marveldentistry.in", "https://admin.marveldentistry.in", "http://localhost:5174", "http://localhost:5173"],

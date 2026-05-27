@@ -254,7 +254,7 @@ exports.createDoctor = (req, res) => {
   const sql =
     "INSERT INTO doctors (name, specialist, image, description) VALUES (?, ?, ?, ?)";
 
-  db.mainDb()(
+  db.mainDb(
     sql,
     [name, specialist, image, description],
     (err, result) => {
@@ -263,17 +263,14 @@ exports.createDoctor = (req, res) => {
         return res.status(500).json(err);
       }
 
-      res.json({
-        message: "Doctor created",
-        id: result.insertId,
-      });
+      res.json({ status: 1, message: "Doctor created", id: result.insertId });
     }
   );
 };
 
 // READ ALL
 exports.getDoctors = (req, res) => {
-  db.mainDb()("SELECT * FROM doctors", (err, results) => {
+  db.mainDb("SELECT * FROM doctors", [], (err, results) => {
     if (err) return res.status(500).json(err);
 
     res.json(results);
@@ -284,7 +281,7 @@ exports.getDoctors = (req, res) => {
 exports.getDoctorById = (req, res) => {
   const { id } = req.params;
 
-  db.mainDb()(
+  db.mainDb(
     "SELECT * FROM doctors WHERE id = ?",
     [id],
     (err, result) => {
@@ -297,27 +294,26 @@ exports.getDoctorById = (req, res) => {
 
 // UPDATE
 exports.updateDoctor = (req, res) => {
-  const { id } = req.params;
-  const { name, specialist, image, description } = req.body;
+  const { id, name, specialist, image, description } = req.body;
 
   const sql =
     "UPDATE doctors SET name=?, specialist=?, image=?, description=? WHERE id=?";
 
-  db.mainDb()(sql, [name, specialist, image, description, id], (err) => {
+  db.mainDb(sql, [name, specialist, image, description, id], (err) => {
     if (err) return res.status(500).json(err);
 
-    res.json({ message: "Doctor updated" });
+    res.json({ status: 1, message: "Doctor updated" });
   });
 };
 
 // DELETE
 exports.deleteDoctor = (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
 
-  db.mainDb()("DELETE FROM doctors WHERE id = ?", [id], (err) => {
+  db.mainDb("DELETE FROM doctors WHERE id = ?", [id], (err) => {
     if (err) return res.status(500).json(err);
 
-    res.json({ message: "Doctor deleted" });
+    res.json({ status: 1, message: "Doctor deleted" });
   });
 };
 //-------------------------------------------------------

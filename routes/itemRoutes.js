@@ -79,8 +79,8 @@ router.post('/deleteBlog', itemController.deleteBlog);
 router.post("/Createdoctors", itemController.createDoctor);
 router.get("/getdoctors", itemController.getDoctors);
 router.get("/doctors/:id", itemController.getDoctorById);
-router.post("/updatedoctors/:id", itemController.updateDoctor);
-router.post("/deletedoctors/:id", itemController.deleteDoctor);
+router.post("/updatedoctors", itemController.updateDoctor);
+router.post("/deletedoctors", itemController.deleteDoctor);
 
 
 
