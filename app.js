@@ -31,9 +31,26 @@ app.set('view engine', 'pug');
 
 // ================== CORS ==================
 app.use(cors({
-  origin: ["https://marveldentistry.in", "https://admin.marveldentistry.in", "http://localhost:5174", "http://localhost:5173"],
+  origin: [
+    "https://marveldentistry.in",
+    "https://www.marveldentistry.in",
+    "https://admin.marveldentistry.in",
+    "http://localhost:5174",
+    "http://localhost:5173"
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization','cache-control','pragma']
+  allowedHeaders: ['Content-Type', 'Authorization', 'cache-control', 'pragma'],
+  credentials: true
+}));
+app.options('*', cors({
+  origin: [
+    "https://marveldentistry.in",
+    "https://www.marveldentistry.in",
+    "https://admin.marveldentistry.in",
+    "http://localhost:5174",
+    "http://localhost:5173"
+  ],
+  credentials: true
 }));
 
 // ================== BODY PARSERS ==================
