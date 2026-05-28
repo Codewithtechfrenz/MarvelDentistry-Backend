@@ -13,6 +13,8 @@ const mysql = require("mysql");
 //     port: 3306
 // });
 
+//  DB Database connection pool
+
 
 const pool = mysql.createPool({
     host: "localhost",
